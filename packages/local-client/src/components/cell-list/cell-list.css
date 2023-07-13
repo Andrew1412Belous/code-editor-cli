@@ -1,0 +1,11 @@
+.cell-list {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*gap: 0.8rem;*/
+    margin: 0 25px 50vh;
+    /*margin-bottom: 3rem;*/
+}
+
+.react-draggable-transparent-selection .cell-list {
+    margin-bottom: 100vh ;
+}
