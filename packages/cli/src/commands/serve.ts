@@ -2,17 +2,39 @@ import { Command } from 'commander';
 import { serve } from 'local-api';
 import path from 'path';
 
+interface LocalApiError {
+	code: string;
+}
+
 export const serveCommand = new Command()
 	.command('serve [filename]')
 	.description('Open a file for editing')
 	.option('-p, --port <number>', 'port to run server on', '4005')
-	.action((filename = 'notebook.js', options: { port: string }) => {
-		let { port } = options;
-		const dir = path.join(process.cwd(), path.dirname(filename));
+	.action(async (filename = 'notebook.js', options: { port: string }) => {
+		const isLocalApiError = (err: any): err is LocalApiError => {
+			return typeof err.code === 'string';
+		};
 
-		if (port.charAt(0) === '=') {
-			port = port.substring(1);
+		try {
+			let { port } = options;
+			const dir = path.join(process.cwd(), path.dirname(filename));
+
+			if (port.charAt(0) === '=') {
+				port = port.substring(1);
+			}
+
+			await serve(parseInt(port), path.basename(filename), dir);
+
+			console.log(`Opened ${filename}. Navigate to http://localhost:${port} to edit the file`);
+		} catch (err) {
+			if (isLocalApiError(err)) {
+				if (err.code === 'EADDRINUSE') {
+					console.error('Port is in use. Try running on a different port.');
+				}
+			} else if (err instanceof Error) {
+				console.log('Here the problem', err.message);
+			}
+
+			process.exit(1);
 		}
-
-		serve(parseInt(port), path.basename(filename), dir);
 	});
