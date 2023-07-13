@@ -2,3 +2,5 @@
 /package/local-api/node_modules/
 /package/local-client/node_modules/
 .idea
+/packages/cli/dist/
+/packages/local-api/dist/
