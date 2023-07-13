@@ -30,17 +30,8 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialValue, onChange }) => {
 
 		const highlighter = new Highlighter(monaco, parse, traverse, editor);
 
-		// highlighter.highLightOnDidChangeModelContent(100);
-
 		highlighter.highLightOnDidChangeModelContent(100);
 		highlighter.addJSXCommentCommand();
-
-		// highlighter.highLightOnDidChangeModelContent(
-		// 	() => {},
-		// 	() => {},
-		// 	undefined,
-		// 	() => {},
-		// );
 	};
 
 	const onFormatCLick = () => {

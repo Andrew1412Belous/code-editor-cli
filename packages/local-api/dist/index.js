@@ -33,6 +33,7 @@ const path = __importStar(require("path"));
 const cell_1 = require("./routes/cell");
 const serve = (port, filename, dir, useProxy) => {
     const app = (0, express_1.default)();
+    app.use((0, cell_1.createCellsRouter)(filename, dir));
     if (useProxy) {
         app.use((0, http_proxy_middleware_1.createProxyMiddleware)({
             target: 'http://127.0.0.1:3000',
@@ -44,7 +45,6 @@ const serve = (port, filename, dir, useProxy) => {
         const packagePath = require.resolve('local-client/build/index.html');
         app.use(express_1.default.static(path.dirname(packagePath)));
     }
-    app.use((0, cell_1.createCellsRouter)(filename, dir));
     return new Promise((resolve, reject) => {
         app.listen(port, resolve).on('error', reject);
     });

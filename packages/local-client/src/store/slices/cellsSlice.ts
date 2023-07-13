@@ -7,6 +7,7 @@ import {
 	UpdateCellAction,
 } from '../actions/cellAction';
 import { randomId } from '../../utils/randomId';
+import { fetchCells, saveCells } from '../thunks/cellsThunks';
 
 const initialState: CellsState = {
 	loading: false,
@@ -56,6 +57,29 @@ const cellsSlice = createSlice({
 			state.order[index] = state.order[targetIndex];
 			state.order[targetIndex] = id;
 		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(fetchCells.pending, (state, action) => {
+			state.loading = true;
+			state.error = null;
+		});
+		builder.addCase(fetchCells.fulfilled, (state, action) => {
+			if (action.payload && action.payload.cells) {
+				state.order = action.payload.cells.map((cell) => cell.id);
+				state.data = action.payload.cells.reduce((acc, cell) => {
+					acc[cell.id] = cell;
+
+					return acc;
+				}, {} as CellsState['data']);
+			}
+		});
+		builder.addCase(fetchCells.rejected, (state, action) => {
+			console.log('REJECT');
+		});
+		builder.addCase(saveCells.rejected, (state, action) => {
+			console.log('REJECT');
+		});
+		builder.addCase(saveCells.fulfilled, (state, action) => {});
 	},
 });
 

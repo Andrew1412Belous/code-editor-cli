@@ -25,7 +25,7 @@ export const serveCommand = new Command()
 				port = port.substring(1);
 			}
 
-			await serve(parseInt(port), path.basename(filename), dir, isProduction);
+			await serve(parseInt(port), path.basename(filename), dir, !isProduction);
 
 			console.log(`Opened ${filename}. Navigate to http://localhost:${port} to edit the file`);
 		} catch (err) {

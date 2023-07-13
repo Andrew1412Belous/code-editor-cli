@@ -31,7 +31,7 @@ exports.serveCommand = new commander_1.Command()
         if (port.charAt(0) === '=') {
             port = port.substring(1);
         }
-        yield (0, local_api_1.serve)(parseInt(port), path_1.default.basename(filename), dir, isProduction);
+        yield (0, local_api_1.serve)(parseInt(port), path_1.default.basename(filename), dir, !isProduction);
         console.log(`Opened ${filename}. Navigate to http://localhost:${port} to edit the file`);
     }
     catch (err) {
