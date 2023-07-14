@@ -17,12 +17,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@notebook-cli/local-client": "^0.1.0"
+    "@notebook-cli/local-client": "^1.0.0"
   },
   "devDependencies": {
     "@notebook-cli/local-api": "^1.0.0",
-    "commander": "^11.0.0",
     "@types/node": "^20.4.1",
+    "commander": "^11.0.0",
     "esbuild": "0.8.26",
     "typescript": "^5.1.6"
   }
