@@ -27,4 +27,9 @@
     bottom: 0;
     left: 0;
     opacity: 0;
+    background: white;
+}
+
+.react-draggable-transparent-selection iframe {
+    pointer-events: none;
 }
