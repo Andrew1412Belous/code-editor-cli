@@ -42,7 +42,7 @@ const serve = (port, filename, dir, useProxy) => {
         }));
     }
     else {
-        const packagePath = require.resolve('local-client/build/index.html');
+        const packagePath = require.resolve('@notebook-cli/local-client/build/index.html');
         app.use(express_1.default.static(path.dirname(packagePath)));
     }
     return new Promise((resolve, reject) => {
